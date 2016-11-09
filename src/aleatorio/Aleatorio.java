@@ -21,9 +21,12 @@ public class Aleatorio {
         
         File fichero = new File("aleatorio.txt");
         
+        Prod obx = new Prod();
+        
+        
+        
         
         fichero.createNewFile();
-        
         RandomAccessFile random = new RandomAccessFile(fichero,"rw");
         
         String[] codes={"p1","p2","p3"};
@@ -38,25 +41,43 @@ public class Aleatorio {
     }
         String acumCod="";
         String acumDes="";
-        for (int j=0;j<3;j++){
-            int c=(j)*34;
-            random.seek(c);
+        String comparar="";
+        int h=2;
+        int c =(h-1)*34;
+        //int c=(j)*34;                           //Esta fila solo es necesaria cuando quieres que te devuelvan todo.
+        random.seek(c);
             
-            for (int i =0;i<3;i++){//Este for nos devolvera el codigo
-                acumCod=acumCod+random.readChar();
-               
+        
+        for (int i =0;i<3;i++){//Este for nos devolvera el codigo
+            char a = random.readChar();
+            if (!" ".equals(String.valueOf(a))){
+                 acumCod=acumCod+a;
+            } 
             }
             
            for (int i =0;i<10;i++){//Este bucle for nos devolvera el nombre del producto
-                acumDes=acumDes+random.readChar();
+               char a = random.readChar();
+               if(!" ".equals(String.valueOf(a)))
+                acumDes=acumDes+a;
                  
             }
+           
+          
           System.out.println(acumCod);     //Imprime el codigo acumulando los char
           System.out.println(acumDes);      //Imprime la descripcion acumulando los char
-          System.out.println(random.readDouble()); //Imprime el double
-          acumCod="";           //Reiniciamos los Strings para borrar el acumulado de char
-          acumDes="";           //Reiniciamos los String para borrar el acumulado de char
-        }
+          double precio = random.readDouble();
+          System.out.println(precio); //Imprime el double
+          obx.setCodigo(acumCod);
+          obx.setDescricion(acumDes);
+          obx.setPrezo(precio);
+          
+          
+          
+          
+          
+          //acumCod="";      Estas dos lineas solo son necesarias sin lo      //Reiniciamos los Strings para borrar el acumulado de char
+          //acumDes="";           //Reiniciamos los String para borrar el acumulado de char
+        
           
              random.close();
             
